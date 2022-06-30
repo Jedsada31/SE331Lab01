@@ -12,11 +12,41 @@
 
 <body>
     <div id="app">
-        <h1>Product goes here</h1>
+        <div class="nav-bar"></div>
+
+        <div class="cart">Cart({{ cart }})</div>
+
+        <div class="product-display">
+            <div class="product-container">
+                <div class="product-image">
+                    <img :src="image">
+                </div>
+                <div class="product-info">
+                    <a href="https://www.camt.cmu.ac.th">
+                        <h1>{{ product }}</h1>
+                    </a>
+                    <p v-if="inventory <= 10 && inventory >0 && inStock">In Stocks</p>
+                    <p v-else>Out of Stocks</p>
+                    <p v-if="onSale">On sale</p>
+                    <p v-else>Comming soon</p>
+                    <ul>
+                        <li v-for="detail in details">{{detail}}</li>
+                    </ul>
+                    <p>{{ sizes }}</p>
+                    <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">{{ variant.color }}</div>
+                    <button class="button" @click="addToCart">Add to Cart</button>
+                    <button class="button" @click="updateStock">Stock</button>
+                </div>
+            </div>
+        </div>
+        <h2>{{info}}</h2>
     </div>
 
     <!-- Import Js -->
     <script src="./main.js"></script>
+    <script>
+        const mountedApp = app.mount('#app')
+    </script>
 </body>
 
 </html>
